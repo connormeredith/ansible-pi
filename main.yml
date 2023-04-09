@@ -3,6 +3,9 @@
   name: Set up Raspberry Pi
 
   pre_tasks:
+    - name: Load config
+      ansible.builtin.include_vars: ./config.yml
+
     - name: Update apt cache
       become: true
       ansible.builtin.apt:

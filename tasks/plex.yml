@@ -10,6 +10,12 @@
     dest: ~/services/plex/
     mode: "0644"
 
+- name: Copy docker-compose.yml
+  ansible.builtin.template:
+    src: ./plex/docker-compose.yml
+    dest: ~/services/plex/docker-compose.yml
+    mode: "0644"
+
 - name: Start plex
   community.docker.docker_compose:
     project_src: ~/services/plex/

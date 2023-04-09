@@ -5,6 +5,12 @@
     dest: ~/services/dns/
     mode: "0644"
 
+- name: Copy docker-compose.yml
+  ansible.builtin.template:
+    src: ./dns/docker-compose.yml
+    dest: ~/services/dns/docker-compose.yml
+    mode: "0644"
+
 - name: Start dns services
   community.docker.docker_compose:
     project_src: ~/services/dns/

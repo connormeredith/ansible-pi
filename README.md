@@ -33,6 +33,12 @@ Ansible playbook for setting up and configuring my Raspberry Pi.
 ansible-galaxy collection install -r requirements.yml
 ```
 
+### Set config variables
+
+```sh
+cp config.example.yml config.yml
+```
+
 ### Run playbook
 
 ```sh
@@ -42,13 +48,6 @@ ansible-playbook -v main.yml
 ### Addition manual set up
 
 #### Pihole
-
-1. Change password
-
-   ```
-   docker container exec -it pihole /bin/bash
-   pihole -a p
-   ```
 
 1. Restore from backup in admin
 
@@ -61,5 +60,3 @@ ansible-playbook -v main.yml
    ```
    Tools > Update Gravity > Update
    ```
-
-#### Plex
