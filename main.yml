@@ -1,0 +1,28 @@
+---
+- hosts: pi
+  name: Set up Raspberry Pi
+
+  pre_tasks:
+    - name: Update apt cache
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+
+  tasks:
+    - name: Upgrade software
+      ansible.builtin.include_tasks: ./tasks/upgrade.yml
+
+    - name: Set up core
+      ansible.builtin.include_tasks: ./tasks/core.yml
+
+    - name: Set up Docker
+      ansible.builtin.include_tasks: ./tasks/docker.yml
+
+    - name: Set up proxy
+      ansible.builtin.include_tasks: ./tasks/proxy.yml
+
+    - name: Set up dns
+      ansible.builtin.include_tasks: ./tasks/dns.yml
+
+    - name: Set up plex
+      ansible.builtin.include_tasks: ./tasks/plex.yml

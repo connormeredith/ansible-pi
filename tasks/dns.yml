@@ -1,0 +1,11 @@
+---
+- name: Copy dns files
+  ansible.builtin.copy:
+    src: ./dns/
+    dest: ~/services/dns/
+    mode: "0644"
+
+- name: Start dns services
+  community.docker.docker_compose:
+    project_src: ~/services/dns/
+    restarted: true

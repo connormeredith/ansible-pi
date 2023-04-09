@@ -1,0 +1,16 @@
+---
+- name: Clone pms-docker repo
+  ansible.builtin.git:
+    repo: https://github.com/plexinc/pms-docker/
+    dest: ~/services/plex/pms-docker/
+
+- name: Copy plex files
+  ansible.builtin.copy:
+    src: ./plex/
+    dest: ~/services/plex/
+    mode: "0644"
+
+- name: Start plex
+  community.docker.docker_compose:
+    project_src: ~/services/plex/
+    restarted: true

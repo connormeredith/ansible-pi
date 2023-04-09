@@ -1,0 +1,15 @@
+---
+- name: Copy proxy files
+  ansible.builtin.copy:
+    src: ./proxy/
+    dest: ~/services/proxy/
+    mode: "0644"
+
+- name: Create external Docker network
+  community.docker.docker_network:
+    name: proxy
+
+- name: Start proxy services
+  community.docker.docker_compose:
+    project_src: ~/services/proxy/
+    restarted: true

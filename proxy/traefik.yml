@@ -1,0 +1,8 @@
+providers:
+  docker:
+    exposedByDefault: false
+    defaultRule: "Host(`{{ index .Labels `com.docker.compose.service` }}.pi.local`)"
+    network: proxy
+
+api:
+  insecure: true
