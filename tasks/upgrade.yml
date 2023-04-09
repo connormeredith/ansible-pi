@@ -1,21 +1,24 @@
 ---
-- name: Upgrade dist
-  become: true
-  ansible.builtin.apt:
-    upgrade: dist
-  register: upgrade_result
+- name: Upgrade software
+  tags: upgrade
+  block:
+    - name: Upgrade dist
+      become: true
+      ansible.builtin.apt:
+        upgrade: dist
+      register: upgrade_result
 
-- name: Reboot
-  become: true
-  ansible.builtin.reboot:
-  when: upgrade_result is changed
+    - name: Reboot
+      become: true
+      ansible.builtin.reboot:
+      when: upgrade_result is changed
 
-- name: Upgrade packages
-  become: true
-  ansible.builtin.apt:
-    upgrade: "yes"
+    - name: Upgrade packages
+      become: true
+      ansible.builtin.apt:
+        upgrade: "yes"
 
-- name: Remove unused packages
-  become: true
-  ansible.builtin.apt:
-    autoremove: true
+    - name: Remove unused packages
+      become: true
+      ansible.builtin.apt:
+        autoremove: true

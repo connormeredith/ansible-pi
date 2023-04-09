@@ -4,28 +4,40 @@
 
   pre_tasks:
     - name: Load config
+      tags:
+        - dns
+        - plex
       ansible.builtin.include_vars: ./config.yml
 
     - name: Update apt cache
       become: true
+      tags:
+        - upgrade
+        - core
       ansible.builtin.apt:
         update_cache: true
 
   tasks:
     - name: Upgrade software
+      tags: upgrade
       ansible.builtin.include_tasks: ./tasks/upgrade.yml
 
     - name: Set up core
+      tags: core
       ansible.builtin.include_tasks: ./tasks/core.yml
 
     - name: Set up Docker
+      tags: docker
       ansible.builtin.include_tasks: ./tasks/docker.yml
 
     - name: Set up proxy
+      tags: proxy
       ansible.builtin.include_tasks: ./tasks/proxy.yml
 
     - name: Set up dns
+      tags: dns
       ansible.builtin.include_tasks: ./tasks/dns.yml
 
     - name: Set up plex
+      tags: plex
       ansible.builtin.include_tasks: ./tasks/plex.yml

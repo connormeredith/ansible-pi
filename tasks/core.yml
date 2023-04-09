@@ -1,16 +1,19 @@
 ---
-- name: Install dependencies
-  become: true
-  ansible.builtin.apt:
-    name:
-      - vim
-      - python3-pip
+- name: Set up core
+  tags: core
+  block:
+    - name: Install dependencies
+      become: true
+      ansible.builtin.apt:
+        name:
+          - vim
+          - python3-pip
 
-- name: Mount storage
-  become: true
-  ansible.posix.mount:
-    path: /mnt/hdd/
-    src: LABEL=Media
-    fstype: ext4
-    opts: defaults
-    state: mounted
+    - name: Mount storage
+      become: true
+      ansible.posix.mount:
+        path: /mnt/hdd/
+        src: LABEL=Media
+        fstype: ext4
+        opts: defaults
+        state: mounted
