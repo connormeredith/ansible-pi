@@ -10,6 +10,7 @@ services:
     volumes:
       - ./traefik.yml:/etc/traefik/traefik.yml
       - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
     networks:
       - proxy
 
