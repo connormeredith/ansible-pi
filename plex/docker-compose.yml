@@ -7,8 +7,9 @@ services:
       dockerfile: Dockerfile.arm64
     container_name: plex
     environment:
-      - TZ="Europe/London"
-      - PLEX_CLAIM="{{PLEX_CLAIM}}"
+      - TZ=Europe/London
+      - PLEX_CLAIM={{PLEX_CLAIM}}
+      - ADVERTISE_IP=http://192.168.8.248:32400/
     ports:
       - 32400:32400/tcp
       - 8324:8324/tcp
@@ -21,4 +22,13 @@ services:
     volumes:
       - ./database:/config
       - /mnt/hdd/media:/data
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.plex.loadbalancer.server.port=32400
     restart: unless-stopped
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
