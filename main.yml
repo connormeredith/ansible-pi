@@ -38,6 +38,10 @@
       tags: dns
       ansible.builtin.include_tasks: ./tasks/dns.yml
 
-    - name: Set up plex
+    - name: Set up Plex
       tags: plex
       ansible.builtin.include_tasks: ./tasks/plex.yml
+
+    - name: Set up Nextcloud
+      tags: nextcloud
+      ansible.builtin.include_tasks: ./tasks/nextcloud.yml
