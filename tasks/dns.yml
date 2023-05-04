@@ -2,6 +2,13 @@
 - name: Set up dns
   tags: dns
   block:
+    - name: Set dns servers
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/dhcpcd.conf
+        line: static domain_name_servers=1.1.1.1 1.0.0.1
+        regexp: '^static domain_name_servers='
+
     - name: Copy dns files
       ansible.builtin.copy:
         src: ./dns/
