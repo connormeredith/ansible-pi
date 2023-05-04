@@ -27,9 +27,17 @@ Ansible playbook for setting up and configuring my Raspberry Pi.
     Keyboard layout: gb
   ```
 
-### Install ansible dependencies
+### Set up and activate virtualenv
 
 ```sh
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### Install ansible and dependencies
+
+```sh
+pip install -r requirements.txt
 ansible-galaxy collection install -r requirements.yml
 ```
 
