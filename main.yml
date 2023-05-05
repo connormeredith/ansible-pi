@@ -45,3 +45,7 @@
     - name: Set up Nextcloud
       tags: nextcloud
       ansible.builtin.include_tasks: ./tasks/nextcloud.yml
+
+    - name: Set up dashboard
+      tags: dashboard
+      ansible.builtin.include_tasks: ./tasks/dashboard.yml
