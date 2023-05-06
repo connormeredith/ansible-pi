@@ -4,22 +4,84 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Dashboard</title>
+    <title>Links</title>
+
+    <style>
+      *, *:before, *:after {
+        box-sizing: border-box;
+      }
+
+      html {
+        font-family: -apple-system,sans-serif;
+      }
+
+      body {
+        background-color: #162341;
+        color: #e2e8f0;
+      }
+
+      main {
+        margin: 0 auto;
+        max-width: 600px;
+      }
+
+      section {
+        align-items: center;
+        background-color: #1e293b;
+        border-radius: 0.5rem;
+        box-shadow: inset 0 0 0 1px #ffffff1a;
+        display: flex;
+        font-size: 1.25rem;
+        gap: 1rem;
+        margin: 1rem 0;
+        padding: 1.25rem;
+        position: relative;
+      }
+
+      section > img {
+        height: 4rem;
+      }
+
+      section > span {
+        margin-left: auto;
+      }
+
+      section > a {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    </style>
   </head>
   <body>
-    <ul>
-      <li>
-        <a href="http://nextcloud.pi.local">Nextcloud</a>
-      </li>
-      <li>
-        <a href="http://pihole.pi.local">Pihole</a>
-      </li>
-      <li>
-        <a href="http://plex.pi.local">Plex</a>
-      </li>
-      <li>
-        <a href="http://pi.local:8080">Traefik</a>
-      </li>
-    </ul>
+    <main>
+      <h1>Links</h1>
+        <section>
+          <img src="/assets/nextcloud.png" />
+          Nextcloud
+          <span>→</span>
+          <a href="http://nextcloud.pi.local"></a>
+        </section>
+        <section>
+          <img src="/assets/pihole.png" />
+          Pihole
+          <span>→</span>
+          <a href="http://pihole.pi.local/admin"></a>
+        </section>
+        <section>
+          <img src="/assets/plex.png" />
+          Plex
+          <span>→</span>
+          <a href="http://plex.pi.local"></a>
+        </section>
+        <section>
+          <img src="/assets/traefik.png" />
+          Traefik
+          <span>→</span>
+          <a href="http://pi.local:8080"></a>
+        </section>
+    </main>
   </body>
 </html>
