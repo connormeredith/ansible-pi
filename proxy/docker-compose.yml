@@ -1,8 +1,9 @@
-version: "3.8"
+version: '3.8'
 
 services:
   traefik:
-    image: traefik:v2.9.6
+    # https://hub.docker.com/_/traefik/tags
+    image: traefik:v2.10.7
     container_name: traefik
     ports:
       - 8080:8080
