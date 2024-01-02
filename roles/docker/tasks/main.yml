@@ -1,0 +1,42 @@
+---
+- name: Check for Docker
+  ansible.builtin.command: which docker
+  failed_when: false
+  changed_when: false
+  register: docker_check
+
+- name: Install Docker
+  become: true
+  ansible.builtin.shell: curl -fsSL https://get.docker.com | sudo sh
+  when: docker_check.rc == 1
+
+- name: Add user to Docker group
+  become: true
+  ansible.builtin.user:
+    name: pi
+    groups: docker
+    append: true
+  when: docker_check.rc == 1
+
+- name: Reboot
+  become: true
+  ansible.builtin.reboot:
+  when: docker_check.rc == 1
+
+- name: Install Docker SDK for Python
+  become: true
+  ansible.builtin.apt:
+    name: python3-docker
+    state: latest
+
+- name: Install docker-compose
+  become: true
+  ansible.builtin.apt:
+    name: docker-compose
+    state: latest
+
+- name: Check Docker is running
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true

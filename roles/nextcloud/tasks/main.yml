@@ -1,0 +1,17 @@
+---
+- name: Create nextcloud folder
+  ansible.builtin.file:
+    path: ~/services/nextcloud
+    state: directory
+    mode: '0755'
+
+- name: Copy docker-compose.yml
+  ansible.builtin.copy:
+    src: docker-compose.yml
+    dest: ~/services/nextcloud/docker-compose.yml
+    mode: '0644'
+
+- name: Start Nextcloud
+  community.docker.docker_compose:
+    project_src: ~/services/nextcloud/
+    restarted: true

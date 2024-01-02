@@ -5,7 +5,7 @@
   pre_tasks:
     - name: Load config
       tags:
-        - dns
+        - pihole
         - plex
       ansible.builtin.include_vars: ./config.yml
 
@@ -13,35 +13,28 @@
       become: true
       tags:
         - upgrade
-        - core
+        - essential
       ansible.builtin.apt:
         update_cache: true
 
-  tasks:
-    - name: Upgrade software
+  roles:
+    - role: upgrade
       tags: upgrade
-      ansible.builtin.include_tasks: ./tasks/upgrade.yml
 
-    - name: Set up core
-      tags: core
-      ansible.builtin.include_tasks: ./tasks/core.yml
+    - role: essential
+      tags: essential
 
-    - name: Set up Docker
+    - role: docker
       tags: docker
-      ansible.builtin.include_tasks: ./tasks/docker.yml
 
-    - name: Set up proxy
+    - role: proxy
       tags: proxy
-      ansible.builtin.include_tasks: ./tasks/proxy.yml
 
-    - name: Set up dns
-      tags: dns
-      ansible.builtin.include_tasks: ./tasks/dns.yml
+    - role: pihole
+      tags: pihole
 
-    - name: Set up Plex
+    - role: plex
       tags: plex
-      ansible.builtin.include_tasks: ./tasks/plex.yml
 
-    - name: Set up Nextcloud
+    - role: nextcloud
       tags: nextcloud
-      ansible.builtin.include_tasks: ./tasks/nextcloud.yml
