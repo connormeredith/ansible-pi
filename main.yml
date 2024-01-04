@@ -38,3 +38,6 @@
 
     - role: nextcloud
       tags: nextcloud
+
+    - role: monitoring
+      tags: monitoring

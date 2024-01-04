@@ -1,0 +1,21 @@
+---
+- name: Create monitoring folder
+  ansible.builtin.file:
+    path: ~/services/monitoring
+    state: directory
+    mode: '0755'
+
+- name: Copy monitoring files
+  ansible.builtin.copy:
+    src: '{{ item }}'
+    dest: ~/services/monitoring/
+    mode: '0644'
+  loop:
+    - docker-compose.yml
+    - grafana
+    - prometheus
+
+- name: Start services
+  community.docker.docker_compose:
+    project_src: ~/services/monitoring/
+    restarted: true

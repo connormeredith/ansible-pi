@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  grafana:
+    # https://hub.docker.com/r/grafana/grafana/tags
+    image: grafana/grafana:10.2.3
+    container_name: grafana
+    environment:
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/pi-monitor.json
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+      - grafana_data:/var/lib/grafana
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.grafana.loadbalancer.server.port=3000
+    restart: unless-stopped
+    networks:
+      - default
+      - proxy
+
+  prometheus:
+    # https://hub.docker.com/r/prom/prometheus/tags
+    image: prom/prometheus:v2.48.0
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    restart: unless-stopped
+
+  node_exporter:
+    # https://hub.docker.com/r/prom/node-exporter/tags
+    image: prom/node-exporter:v1.7.0
+    container_name: node_exporter
+    command:
+      - '--path.rootfs=/host'
+    volumes:
+      - /:/host:ro
+    restart: unless-stopped
+
+  # cadvisor:
+  #   image: gcr.io/cadvisor/cadvisor:v0.47.2
+  #   container_name: cadvisor
+  #   volumes:
+  #     - /:/rootfs:ro
+  #     - /var/run:/var/run:ro
+  #     - /sys:/sys:ro
+  #     - /var/lib/docker/:/var/lib/docker:ro
+  #     - /dev/disk/:/dev/disk:ro
+  #   restart: unless-stopped
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
+networks:
+  proxy:
+    external: true
