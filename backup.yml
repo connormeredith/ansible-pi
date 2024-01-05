@@ -1,0 +1,25 @@
+---
+- hosts: pi
+  name: Backup
+
+  vars:
+    nextcloud_archive_filename: nextcloud_data_{{ ansible_date_time.iso8601 }}.tar.gz
+
+  tasks:
+    - name: Create backup folder
+      ansible.builtin.file:
+        path: /mnt/hdd/backups
+        state: directory
+        mode: '0755'
+
+    - name: Create Nextcloud data archive
+      ansible.builtin.shell:
+        chdir: /mnt/hdd/
+        cmd: tar -czf backups/{{ nextcloud_archive_filename }} nextcloud/data/**/files/
+        creates: /mnt/hdd/backups/{{ nextcloud_archive_filename}}
+
+    - name: Copy Nextcloud data archive to local machine
+      ansible.builtin.fetch:
+        src: /mnt/hdd/backups/{{ nextcloud_archive_filename }}
+        dest: ~/backups/
+        flat: true

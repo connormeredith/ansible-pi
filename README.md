@@ -53,7 +53,7 @@ cp config.example.yml config.yml
 ansible-playbook -v main.yml
 ```
 
-### Addition manual set up
+### Additional manual setup
 
 #### Pihole
 
@@ -68,3 +68,9 @@ ansible-playbook -v main.yml
    ```
    Tools > Update Gravity > Update
    ```
+
+## Backups
+
+```sh
+ansible-playbook -v backup.yml
+```
